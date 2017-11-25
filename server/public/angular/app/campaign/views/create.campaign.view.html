@@ -1,0 +1,497 @@
+<style type="text/css">
+  .input-field div.error {
+    position: relative;
+    top: -1rem;
+    left: 3rem;
+    font-size: 0.8rem;
+    color: firebrick;
+    -webkit-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+
+  .left-alert input[type=text] + label:after,
+  .left-alert input[type=password] + label:after,
+  .left-alert input[type=email] + label:after,
+  .left-alert input[type=url] + label:after,
+  .left-alert input[type=time] + label:after,
+  .left-alert input[type=date] + label:after,
+  .left-alert input[type=datetime-local] + label:after,
+  .left-alert input[type=tel] + label:after,
+  .left-alert input[type=number] + label:after,
+  .left-alert input[type=search] + label:after,
+  .left-alert textarea.materialize-textarea + label:after {
+    left: 0px;
+  }
+
+  .right-alert input[type=text] + label:after,
+  .right-alert input[type=password] + label:after,
+  .right-alert input[type=email] + label:after,
+  .right-alert input[type=url] + label:after,
+  .right-alert input[type=time] + label:after,
+  .right-alert input[type=date] + label:after,
+  .right-alert input[type=datetime-local] + label:after,
+  .right-alert input[type=tel] + label:after,
+  .right-alert input[type=number] + label:after,
+  .right-alert input[type=search] + label:after,
+  .right-alert textarea.materialize-textarea + label:after {
+    right: 70px;
+  }
+</style>
+<div class="col s12 m8 l9">
+  <ul class="collapsible popout collapsible-accordion" data-collapsible="accordion">
+    <li>
+      <div id="campaign-section" class="collapsible-header active"><i class="mdi-action-info-outline"></i>CAMPAIGN INFO
+      </div>
+      <div class="collapsible-body">
+        <div class="col s12 m12 l6">
+          <div class="card-panel">
+            <!--<h4 class="header2">Form with icon prefixes</h4>-->
+            <div class="row">
+              <form name="form" id="info-campaign-form" class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-image-edit prefix"></i>
+                    <input data-error=".errorC_n" ng-model="camp.campaignToAdd.name" name="c_n" id="c_n" type="text">
+                    <div class="errorC_n"></div>
+                    <label for="c_n">Campaign Name *</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-editor-insert-link prefix"></i>
+                    <input ata-error=".errorUrl" ng-model="camp.campaignToAdd.url" name="c_url" required id="c_url"
+                           type="url">
+                    <div class="errorUrl"></div>
+                    <label for="c_url">Main Website *</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-image-timer prefix"></i>
+                    <!--<input ng-model="camp.campaignToAdd.dateStart" required id="datestart" type="date" >-->
+                    <input input-date
+                           type="text"
+                           name="inputCreated"
+                           id="inputCreated"
+                           ng-model="camp.campaignToAdd.dateStart"
+                           ng-change="toStartDate=camp.campaignToAdd.dateStart;"
+                           container="body"
+                           format="dd/mm/yyyy"
+                           months-full="{{ month }}"
+                           months-short="{{ monthShort }}"
+                           weekdays-full="{{ weekdaysFull }}"
+                           weekdays-short="{{ weekdaysShort }}"
+                           weekdays-letter="{{ weekdaysLetter }}"
+                           disable="disable"
+                           min="{{ dateMin }}"
+                           max="{{ maxDate }}"
+                           today="today"
+                           clear="clear"
+                           close="close"
+                           select-years="15"
+                           on-start="onStart()"
+                           on-render="onRender()"
+                           on-open="onOpen()"
+                           on-close="onClose()"
+                           on-set="onSet()"
+                           on-stop="onStop()"/>
+                    <input type="hidden" ng-model="toStartDate"/>
+                    <label for="inputCreated">Date start *</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-image-timer-off prefix"></i>
+                    <input input-date ng-disabled="!form.inputCreated.$dirty"
+                           type="text"
+                           name="inputEnd"
+                           id="inputEnd"
+                           ng-model="camp.campaignToAdd.dateEnd"
+                           container="body"
+                           format="dd/mm/yyyy"
+                           months-full="{{ month }}"
+                           months-short="{{ monthShort }}"
+                           weekdays-full="{{ weekdaysFull }}"
+                           weekdays-short="{{ weekdaysShort }}"
+                           weekdays-letter="{{ weekdaysLetter }}"
+                           disable="disable"
+                           min="{{dateEndMin}}"
+                           max="{{ maxDate }}"
+                           today="today"
+                           clear="clear"
+                           close="close"
+                           select-years="15"
+                           on-start="onStart()"
+                           on-render="onRender()"
+                           on-open="onOpen()"
+                           on-close="onClose()"
+                           on-set="onSet()"
+                           on-stop="onStop()"/>
+                    <label for="inputEnd">Date end *</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-maps-local-phone prefix"></i>
+                    <input ng-model="camp.campaignToAdd.phoneNumber" name="c_phone" id="c_phone" type="number">
+                    <label for="c_phone">Phone Number</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-action-subject prefix"></i>
+                    <textarea ng-model="camp.campaignToAdd.description" name="c_desc" id="c_desc"
+                              class="materialize-textarea"></textarea>
+                    <label for="c_desc">Description *</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12">
+                    <button onclick="validateAndGoNext('#assign-section')"
+                            class="btn grey darken-3 waves-effect waves-light right" name="action">Next
+                      <i class="mdi-image-navigate-next right"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div style="pointer-events: none;" id="assign-section" class="collapsible-header"><i
+        class="mdi-action-language"></i>ASSIGN CHANNELS
+      </div>
+      <div class="collapsible-body">
+        <div class="col s12 m12 l6">
+          <div class="card-panel">
+            <!--<h4 class="header2">Form with icon prefixes</h4>-->
+            <div class="row">
+              <form id="channels-campaign-form" class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <div class="input-field col s3 offset-s3">
+                      <input ng-model="newChannelShow" ng-value="true" class="with-gap" name="group1" type="radio"
+                             id="test3"/>
+                      <label for="test3">New Channel</label>
+                    </div>
+                    <div class="input-field col s4">
+                      <input ng-model="newChannelShow" ng-value="false" class="with-gap" name="group1" type="radio"
+                             id="test4"/>
+                      <label for="test4">Assign Channel</label>
+                    </div>
+                  </div>
+                  <div ng-show="newChannelShow===false">
+                    <span ng-init="camp.getAllMyChannels()"></span>
+                    <div class="row">
+                      <div class="input-field col s1">
+                        <i class="mdi-image-edit prefix"></i>
+                      </div>
+                      <div class="input-field col s11">
+                        <select class="browser-default" ng-model="camp.campaignToAdd.channelId">
+                          <option value="" disabled selected> Choose existent channel</option>
+                          <optgroup ng-repeat="ch in camp.allMyChannels" label="{{ch.name}}">
+                            <option value="{{ch._id}}">{{ch.url}}</option>
+                          </optgroup>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div ng-show="newChannelShow">
+                    <div class="row">
+                      <div class="input-field col s12">
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="mdi-image-edit prefix"></i>
+                            <input ng-model="camp.campaignToAdd.channel.name" id="ch_name" name="ch_name" type="text">
+                            <label for="ch_name">Channel Name</label>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s12">
+                            <i class="fa fa-users prefix"></i>
+                            <input ng-init="camp.campaignToAdd.channel.personal=false" id="personal" type="checkbox"
+                                   ng-model="camp.campaignToAdd.channel.personal">
+                            <label for="personal">Personnel
+                            </label>
+                            <br>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="input-field col s1">
+                            <i class="mdi-image-edit prefix"></i>
+                          </div>
+                          <div class="input-field col s8">
+                            <select ng-model="camp.campaignToAdd.channel.type" name="type" name="ch_type" id="ch_type">
+                              <option value="" disabled>Type</option>
+                              <option value="facebook">Facebook</option>
+                              <option value="twitter">Twitter</option>
+                            </select>
+                          </div>
+                          <div
+                            ng-if="camp.campaignToAdd.channel.personal && camp.campaignToAdd.channel.type==='facebook'"
+                            style="margin-top: 15px;" class="input-field col s3">
+                            <button
+                              ng-click="camp.getPermissions()"
+                              class="btn light-blue darken-4 waves-effect waves-light right">
+                              <i class="fa fa-facebook-official left"></i> Give permission
+                            </button>
+                          </div>
+                        </div>
+                        <div ng-if="camp.campaignToAdd.channel.personal===false" class="row">
+                          <div class="input-field col s12">
+                            <i class="mdi-image-edit prefix"></i>
+                            <input ng-model="camp.campaignToAdd.channel.url" id="ch_url" type="url">
+                            <label for="ch_url">Channel URL</label>
+                          </div>
+                        </div>
+                        <div class="row" ng-if="camp.campaignToAdd.channel.personal && myFacebookPages.length">
+                          <div class="input-field col s1">
+                            <i class="fa fa-facebook prefix"></i>
+                          </div>
+
+                          <div class="input-field col s11">
+                            <select ng-required="true" ng-model="camp.campaignToAdd.channel.url" name="page" id="page"
+                                    material-select watch>
+                              <option value="" selected>Choose an option</option>
+                              <option ng-repeat="page in myFacebookPages" value="{{page.value}}">{{page.text}}</option>
+                            </select>
+                            <label for="page">Page</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div ng-show="newChannelShow==true" class="input-field s12">
+                      <button ng-click="camp.addChannels(camp.campaignToAdd.channel)"
+                              class="col s4 offset-s4 btn grey darken-3 waves-effect waves-light center " name="action">
+                        Add Channel To this Campaign
+                        <i class="mdi-action-note-add right"></i>
+                      </button>
+                    </div>
+                    <div ng-show="newChannelShow==false" class="input-field s12">
+                      <button ng-click="camp.pushChannelId(camp.campaignToAdd.channelId,false)"
+                              class="col s4 offset-s4 btn grey darken-3 waves-effect waves-light center " name="action">
+                        Add Channel To this Campaign
+                        <i class="mdi-action-note-add right"></i>
+                      </button>
+                    </div>
+                    <div class="input-field col s12">
+                      <br/><br/><br/>
+                      <span ng-repeat="channel in channels">
+                                 <div class="chip white-text {{camp.setColor(channel.url)}}">
+                                    <img width="100" height="100"
+                                         ng-src="{{'https://logo.clearbit.com/'+camp.extractDomain(channel.url)}}"
+                                         err-src
+                                         alt="logo">
+                                    {{channel.name}}
+                                        <i ng-click="camp.removeChannelsFromAdd($index)"
+                                           class="material-icons mdi-navigation-close"></i>
+
+                                 </div>
+                              </span>
+                      <br/><br/><br/>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="input-field col s6">
+                      <button onclick="validateAndGoPrev('#campaign-section')"
+                              class="btn grey darken-3 waves-effect waves-light left" name="action">Previous
+                        <i class="mdi-image-navigate-before left"></i>
+                      </button>
+                    </div>
+                    <div class="input-field col s6">
+                      <button onclick="validateAndGoNext('#keywords-section')"
+                              class="btn grey darken-3 waves-effect waves-light right" name="action">Next
+                        <i class="mdi-image-navigate-next right"></i>
+                      </button>
+                    </div>
+                  </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div style="pointer-events: none;" id="keywords-section" class="collapsible-header"><i
+        class="mdi-action-book"></i>KEYWORDS
+      </div>
+      <div class="collapsible-body">
+        <div class="col s12 m12 l6">
+          <div class="card-panel">
+            <!--<h4 class="header2">Form with icon prefixes</h4>-->
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <i class="mdi-image-edit prefix"></i>
+                    <input ng-model="camp.keyword.content" id="c_nnn" type="text">
+                    <label for="c_n">Keyword Expression </label>
+                  </div>
+
+                  <div class="input-field col s12">
+                    <div ng-init="camp.keyword.importance='low'" class="input-field col s3 offset-s2">
+
+                      <input ng-model="camp.keyword.importance" value="low" class="with-gap" name="importanceKey"
+                             type="radio"
+                             id="low"/>
+                      <label for="low">Low</label>
+                    </div>
+                    <div class="input-field col s3">
+                      <input ng-model="camp.keyword.importance" value="medium" class="with-gap" name="importanceKey"
+                             type="radio"
+                             id="medium"/>
+                      <label for="medium">Medium</label>
+                    </div>
+                    <div class="input-field col s2">
+                      <input ng-model="camp.keyword.importance" value="high" class="with-gap" name="importanceKey"
+                             type="radio"
+                             id="high"/>
+                      <label for="high">High</label>
+                    </div>
+                  </div>
+                  <div class="input-field col s12">
+                    <br/><br/><br/>
+                    <span ng-repeat="k in keywords">
+                                 <div class="chip white-text teal">
+                                    {{k.content}}
+
+                                     <i ng-click="camp.removeKeywordsFromAdd($index)"
+                                        class="material-icons mdi-navigation-close"></i>
+                                 </div>
+                              </span>
+                    <br/><br/><br/>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="input-field col s12">
+                    <button ng-click="camp.addKeywords(camp.keyword)"
+                            class="col s4 offset-s4 btn grey darken-3 waves-effect waves-light center " name="action">
+                      Add Keyword To this Campaign
+                      <i class="mdi-action-note-add right"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s6">
+                    <button onclick="validateAndGoPrev('#assign-section')"
+                            class="btn grey darken-3 waves-effect waves-light left" name="action">Previous
+                      <i class="mdi-image-navigate-before left"></i>
+                    </button>
+                  </div>
+                  <div class="input-field col s6">
+                    <button ng-click="camp.addCampaign(camp.campaignToAdd)"
+                            class="btn grey darken-3 waves-effect waves-light right" type="submit" name="action">Add
+                      Campaign
+                      <i class="mdi-content-add-circle right"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<script>
+  loadScriptOnlyIfNotLoaded("angular/app/assets/js/materialize.min.js");
+  loadScriptOnlyIfNotLoaded("angular/app/assets/js/plugins.min.js");
+</script>
+<script>
+  function validateAndGoNext(next) {
+    if (next == '#assign-section') {
+      $("#info-campaign-form").validate({
+        rules: {
+          c_n: {
+            required: true,
+            minlength: 2
+          },
+          c_url: {
+            required: true,
+          },
+          inputCreated: {
+            required: true,
+          },
+          inputEnd: {
+            required: true,
+          }, c_desc: {
+            required: true,
+          },
+          c_phone: {
+            minlength: 8,
+            maxlength: 15,
+            digits: true
+          },
+
+        },
+        messages: {
+          c_phone: {
+            maxlength: "please enter a valid phone number! max length 15 !",
+            minlength: "please enter a valid phone number! min length 8 !",
+            digits: "please enter a valid phone number!"
+          }
+        },
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        },
+        submitHandler: function (form) {
+          $(next).trigger('click');
+        }
+      });
+    }
+
+    if (next == '#keywords-section') {
+      $("#channels-campaign-form").validate({
+        rules: {
+          ch_name: {},
+          ch_type: {},
+
+        },
+        messages: {},
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+          var placement = $(element).data('error');
+          if (placement) {
+
+            $(placement).append(error)
+          } else {
+            error.insertAfter(element);
+          }
+        },
+        submitHandler: function (form) {
+          $(next).trigger('click');
+        }
+      });
+    }
+
+
+  }
+
+  function validateAndGoPrev(prev) {
+    $(prev).trigger('click');
+  }
+
+
+</script>
+
+
+<script type="text/javascript">
+
+
+</script>

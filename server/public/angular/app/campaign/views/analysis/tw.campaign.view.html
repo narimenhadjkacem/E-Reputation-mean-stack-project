@@ -1,0 +1,443 @@
+<!--breadcrumbs start-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+
+  blockquote.twitter-tweet {
+    display: inline-block;
+    padding: 16px;
+    margin: 10px 0;
+    max-width: 468px;
+    border: #ddd 1px solid;
+    border-top-color: #eee;
+    border-bottom-color: #bbb;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    font: bold 14px/18px Helvetica, Arial, sans-serif;
+    color: #000;
+  }
+
+  blockquote.twitter-tweet p {
+    font: normal 18px/24px Georgia, "Times New Roman", Palatino, serif;
+    margin: 0 5px 10px 0;
+  }
+
+  blockquote.twitter-tweet a[href^="https://twitter.com"] {
+    font-weight: normal;
+    color: #666;
+    font-size: 12px;
+  }
+</style>
+<!--
+<div ui-if="result" class="result" id="result">
+  <my-href my-href="result"></my-href>
+</div>
+-->
+
+
+<!--
+<div class="row margin">
+  <div style="margin-top: 25px;" class="col s12">
+    <ul class="tabs tab-demo-active z-depth-1">
+      <li class="tab col s3"><a class="white-text light-blue darken-1 waves-effect waves-light" ng-click="camp.overviewClicked()"><i class="mdi-action-perm-identity"></i> Overview</a>
+      </li>
+      <li class="tab col s3"><a class="white-text blue darken-1 waves-effect waves-light active" ng-click="camp.liveClicked()"><i class="mdi-action-settings-display"></i> Live</a>
+      </li>
+
+    </ul>
+  </div>
+</div>
+-->
+
+<!--
+Overview Start Here!
+-->
+<div ng-show="camp.overview">
+<div id="input-select" class="row">
+  <div style="margin-top: 25px;" class="col s12 m12 l12">
+    <div class="input-field col s12">
+      <label>Please select your channel</label>
+      <select ng-change="camp.onSelectChannel()" material-select watch ng-model="camp.selectChannelValue">
+        <option value="" disabled>Choose your option</option>
+        <option value="all">Follow All Channels</option>
+        <option ng-repeat="allchannels in camp.allChannelsInArray" value="{{allchannels._id}}">{{allchannels.name}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="row margin">
+
+  <div class=" input-field col s5 m5 l5 margin">
+    <label>Since</label>
+    <input input-date
+           type="text"
+           name="created"
+           id="since"
+           ng-model="camp.since"
+           format="mmmm d, yyyy"
+           today="today"
+           clear="clear"
+           close="close"
+           select-years="15"
+           min="{{camp.minDate}}"
+           max="{{camp.maxDate}}"
+           ng-change="camp.onChange()"
+    />
+
+  </div>
+
+
+  <div class="input-field col s5 m5 l5 margin push-l2 push-s2 push-m2">
+    <label>Until</label>
+    <input input-date
+           type="text"
+           name="created"
+           id="until"
+           ng-model="camp.until"
+           format="mmmm d, yyyy"
+           today="today"
+           clear="clear"
+           close="close"
+           select-years="15"
+           min="{{camp.minDate}}"
+           max="{{camp.maxDate}}"
+           ng-change="camp.onChange()"
+    />
+
+  </div>
+
+</div>
+
+<div id="breadcrumbs-wrapper" ng-if="camp.selectChannelValue!='all'">
+  <div class="col s12">
+    <div id="tab-twitter" class="col s12 ">
+      <!-- your In tab Work-->
+
+
+      <div id="flight-card" class="card">
+        <div class="card-header light-blue lighten-2 darken-2">
+          <div class="card-title">
+            <h4 ng-if="camp.name" class="flight-card-title">{{camp.name}}</h4>
+            <h4 ng-if="!camp.name" class="flight-card-title center">
+              <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+            </h4>
+            <p ng-if="camp.created_at" class="flight-card-date">Created at: {{camp.created_at}}</p>
+          </div>
+        </div>
+        <div ng-if="camp.profile_banner_url"
+             style="background:url({{camp.profile_banner_url}}) no-repeat center center;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;height: 300px;"
+             class="card-content-bg-twitter white-text">
+          <div class="card-content" style="height: 300px;">
+            <div class="row flight-state-wrapper">
+              <div class="col s5 m5 l5 center-align">
+                <div class="flight-state">
+
+                </div>
+              </div>
+              <div class="col s2 m2 l2 center-align">
+
+              </div>
+              <div class="col s5 m5 l5 center-align">
+                <div class="flight-state">
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Cards stats -->
+
+      <div id="card-stats">
+        <div class="row">
+          <div class="col s12 m6 l3">
+            <div class="card">
+              <div class="card-content  light-blue white-text">
+                <p class="card-stats-title"><i class="mdi-social-group-add"></i> Followers</p>
+                <h4 ng-if="camp.followers_count" class="card-stats-number">{{camp.followers_count}}</h4>
+                <h4 ng-if="!camp.followers_count" class="card-stats-number">
+                  <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+                </h4>
+                <p class="card-stats-compare">
+
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col s12 m6 l3">
+            <div class="card">
+              <div class="card-content light-blue lighten-1 white-text">
+                <p class="card-stats-title"><i class="fa fa-users" aria-hidden="true"></i> Following</p>
+                <h4 ng-if="camp.friends_count" class="card-stats-number">{{camp.friends_count}}</h4>
+                <h4 ng-if="!camp.friends_count" class="card-stats-number">
+                  <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+                </h4>
+                <p class="card-stats-compare">
+                <p class="card-stats-compare">
+
+                </p>
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col s12 m6 l3">
+            <div class="card">
+              <div class="card-content light-blue white-text">
+                <p class="card-stats-title"><i class="mdi-action-favorite"></i> Favourites</p>
+                <h4 ng-if="camp.favourites_count" class="card-stats-number">{{camp.favourites_count}}</h4>
+                <h4 ng-if="!camp.favourites_count" class="card-stats-number">
+                  <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+                </h4>
+                <p class="card-stats-compare">
+
+                </p>
+              </div>
+
+            </div>
+          </div>
+          <div class="col s12 m6 l3">
+            <div class="card">
+              <div class="card-content light-blue white-text">
+                <p class="card-stats-title"><i class="mdi-action-perm-identity"></i>Tweets</p>
+                <h4 ng-if="camp.statuses_count" class="card-stats-number">{{camp.statuses_count}}</h4>
+                <h4 ng-if="!camp.statuses_count" class="card-stats-number">
+                  <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+                </h4>
+                <p class="card-stats-compare">
+
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- End card stats
+      <!-- END of work -->
+    </div>
+  </div>
+
+</div>
+
+<div class="row" ng-if="camp.selectChannelValue=='all'">
+  <div ng-if="camp.reputationBySentimentAll.length > 1 " class="col s12 m12 l12">
+    <pie-chart height="400" my-id="Replies" my-table="{{camp.reputationBySentimentAll}}"
+               title="Tweets Analytics"></pie-chart>
+  </div>
+  <div ng-if="camp.reputationBySentimentAll.length <= 1 " class="col s12 m12 l12">
+    <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+  </div>
+</div>
+
+<div class="row" ng-if="camp.selectChannelValue!='all'">
+  <div class="col s12 m12 l12">
+
+    <div class="col s6 m6 l6">
+      <div class="row">
+        <div ng-if="camp.reputationBySentimentReply.length > 1 " class="col s12 m12 l12">
+          <pie-chart height="400" my-id="Replies" my-table="{{camp.reputationBySentimentReply}}"
+                     title="Tweets Replies Analytics"></pie-chart>
+        </div>
+
+        <div style="position: relative;" class="col s12 m12 l12">
+          <div class="progress light-blue">
+            <div class="indeterminate hide red"></div>
+          </div>
+        </div>
+
+
+        <div ng-if="camp.reputationBySentimentReply.length <= 1 " class="col s12 m12 l12">
+          <div style="font-size: medium;" class="spinner icon-spinner-5" aria-hidden="true"></div>
+        </div>
+        <div class="input-filed col s12s m12 l12">
+          <div class="col s6">
+          <label>Most Positive Tweet In Replies To Your Tweets</label>
+          <div id="topPositiveReply{{camp.pn}}"></div>
+          </div>
+          <div class="col s6">
+          <label>Most Negative Tweet In Replies To Your Tweets</label>
+            <div id="topNegativeReply{{camp.pn}}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col s6 m6 l6">
+      <div class="row">
+        <div  ng-if="camp.reputationBySentimentMention.length > 1 " class="col s12 m12 l12">
+          <pie-chart height="400" my-id="Mentions" my-table="{{camp.reputationBySentimentMention}}"
+                     title="Tweets Mentions Analytics"></pie-chart>
+        </div>
+        <div ng-if="camp.reputationBySentimentMention.length <= 1 " class="col s12 m12 l12">
+          <pie-chart height="400" my-id="Mentions" my-table="{{camp.reputationBySentimentMention}}"
+                     title="Tweets Mentions Analytics"></pie-chart>
+        </div>
+
+
+        <div style="position: relative;" class="col s12 m12 l12">
+          <div class="progress light-blue">
+            <div class="indeterminate hide red"></div>
+          </div>
+        </div>
+
+
+        <div class="input-filed col s12s m12 l12">
+          <div class="col s6">
+          <label>Most Positive Tweet In Where You Are Mentioned</label>
+            <div id="topPositiveMention{{camp.pn}}"></div>
+          </div>
+          <div class="col s6">
+          <label>Most Negative Tweet In Where You Are Mentioned</label>
+            <div id="topNegativeMention{{camp.pn}}"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div class="container ">
+    <div class="center">
+  <ul class="pagination">
+    <li class="disabled"><a ><i class="material-icons">chevron_left</i></a></li>
+    <li  class="active paginationC" id="p1"><a ng-click="camp.topPageClicked(1)">1</a></li>
+    <li class="waves-effect paginationC" id="p2"><a ng-click="camp.topPageClicked(2)">2</a></li>
+    <li class="waves-effect paginationC" id="p3"><a ng-click="camp.topPageClicked(3)">3</a></li>
+    <li class="waves-effect paginationC" id="p4"><a ng-click="camp.topPageClicked(4)">4</a></li>
+    <li class="waves-effect paginationC" id="p5"><a ng-click="camp.topPageClicked(5)">5</a></li>
+    <li class="disabled" id="p6"><a ><i class="material-icons">chevron_right</i></a></li>
+  </ul>
+    </div>
+  </div>
+<div class="row" ng-if="camp.selectChannelValue!='all'">
+  <div class="col s6 m6 l6">
+    <ul id="issues-collection" class="collection">
+      <li class="collection-item avatar">
+        <i class="mdi-action-bug-report circle red darken-2"></i>
+        <span class="collection-header">Top 5</span>
+        <p>Hashtags used in replies to your tweets</p>
+        <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>
+      </li>
+      <li ng-repeat="ky in camp.HashtagsReply" class="collection-item">
+        <div class="row">
+          <div class="col s7">
+            <p class="collections-title"><strong>#{{ky._id.text}}</strong></p>
+
+          </div>
+          <div class="col s2">
+            <span class="task-cat pink accent-2">{{ky.nb}}</span>
+          </div>
+          <div class="col s3">
+            <div class="progress">
+              <div class="determinate" style="width: {{ky.nb*100/camp.HRS}}%"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+  <div class="col s6 m6 l6">
+    <ul id="issues-collection2" class="collection">
+      <li class="collection-item avatar">
+        <i class="mdi-action-bug-report circle red darken-2"></i>
+        <span class="collection-header">Top 5</span>
+        <p>Hashtags used in tweets you mentoned in</p>
+        <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>
+      </li>
+      <li ng-repeat="ky in camp.HashtagsMention" class="collection-item">
+        <div class="row">
+          <div class="col s7">
+            <p class="collections-title"><strong>#{{ky._id.text}}</strong></p>
+
+          </div>
+          <div class="col s2">
+            <span class="task-cat pink accent-2">{{ky.nb}}</span>
+          </div>
+          <div class="col s3">
+            <div class="progress">
+              <div class="determinate" style="width: {{ky.nb*100/camp.HMS}}%"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+<div class="row" ng-if="camp.selectChannelValue=='all'">
+
+  <div class="col s12 m12 l12">
+    <ul id="issues-collection3" class="collection">
+      <li class="collection-item avatar">
+        <i class="mdi-action-bug-report circle red darken-2"></i>
+        <span class="collection-header">Top 5</span>
+        <p>Hashtags used in tweets based on your campaign keywords</p>
+        <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>
+      </li>
+      <li ng-repeat="ky in camp.HashtagsAll" class="collection-item">
+        <div class="row">
+          <div class="col s7">
+            <p class="collections-title"><strong>#{{ky._id.text}}</strong></p>
+
+          </div>
+          <div class="col s2">
+            <span class="task-cat pink accent-2">{{ky.nb}}</span>
+          </div>
+          <div class="col s3">
+            <div class="progress">
+              <div class="determinate" style="width: {{ky.nb*100/camp.HA}}%"></div>
+            </div>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!--
+Live Start Here!
+-->
+<div ng-show="camp.live">
+
+  <div class="row">
+    <div class="input-field col offset-s2 s8">
+      <i class="mdi-action-account-circle prefix"></i>
+      <input id="icon_prefix3" type="text" class="validate">
+      <label for="icon_prefix3">Tweet Url</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col offset-s9">
+  <button class="btn waves-effect waves-light " type="submit" name="action">Scan
+    <i class="mdi-content-send right"></i>
+  </button>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('select').material_select();
+  });
+
+</script>
+
+<script src="//platform.twitter.com/widgets.js" charset="utf-8"></script>

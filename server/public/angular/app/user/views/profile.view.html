@@ -1,0 +1,510 @@
+<body>
+
+
+<div class="wrapper">
+
+
+  <!-- START CONTENT -->
+  <section id="content">
+
+    <!--start container-->
+    <div class="container">
+
+      <div ng-show="currentUser.kind=='Individual'" id="profile-page" class="section">
+        <!-- profile-page-header -->
+        <div id="profile-page-header" class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator"
+                 src="../../../../uploads/{{profile.user.coverPicture}}.jpg"
+                 alt="user background">
+          </div>
+          <figure class="card-profile-image">
+            <img
+              src="../../../../uploads/{{profile.user.profilePicture}}.png"
+              alt="profile image" class="circle z-depth-2 responsive-img activator">
+          </figure>
+          <div class="card-content">
+            <div class="row">
+              <div class="col s3 offset-s2">
+                <h4 class="card-title grey-text text-darken-4">
+                  {{profile.user.firstName}} {{profile.user.lastName}}</h4>
+                <p class="medium-small grey-text">{{currentUser.username}}</p>
+              </div>
+
+              <div class="col s1 right">
+                <a class="btn-floating activator waves-effect waves-light darken-2 right">
+                  <i class="mdi-action-perm-identity"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-reveal">
+            <p>
+              <span class="card-title grey-text text-darken-4">{{currentUser.firstName}} {{currentUser.lastName}}<i
+                class="mdi-navigation-close right"></i></span>
+              <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> {{currentUser.username}}</span>
+            </p>
+
+            <p>{{currentUser.about}}</p>
+
+            <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> {{currentUser.phoneNumber}}</p>
+            <p><i class="mdi-communication-email cyan-text text-darken-2"></i> {{currentUser.email}}</p>
+            <p><i class="mdi-social-cake cyan-text text-darken-2"></i> {{currentUser.birthday | date:'MM/dd/yyyy'}}</p>
+            <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> {{currentUser.country}}</p>
+          </div>
+        </div>
+        <!--/ profile-page-header -->
+
+        <!-- profile-page-content -->
+        <div id="profile-page-content" class="row">
+          <!-- profile-page-sidebar-->
+          <div id="profile-page-sidebar" class="col s12 m6">
+            <!-- Profile About  -->
+            <div class="card light-blue">
+              <div class="card-content white-text">
+                <span class="card-title">About Me!</span>
+                <p>{{currentUser.about}}.</p>
+              </div>
+            </div>
+            <!-- Profile About  -->
+
+            <!-- Profile About Details  -->
+            <ul id="profile-page-about-details" class="collection z-depth-1">
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="fa fa-bars" aria-hidden="true"></i> Creation Date
+                  </div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{profile.user.creationDate | limitTo:15}}</div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="fa fa-envelope" aria-hidden="true"></i> Email Address
+                  </div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.email}}</div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Country</div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.country}}</div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Birthday</div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.birthday | date:'MM/dd/yyyy'}}</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+          <!-- profile-page-sidebar-->
+
+          <!-- profile-page-wall -->
+          <div id="profile-page-wall" class="col s12 m6">
+            <!-- profile-page-wall-share -->
+            <div id="profile-page-wall-share" class="row">
+              <div class="col s12">
+
+                <!-- flight-card -->
+                <div id="flight-card" class="card">
+                  <div class="card-header amber darken-2">
+                    <div class="card-title">
+                      <h4 class="flight-card-title">Your Have Created {{currentUser.numberOfCampaigns}} Campaigns</h4>
+                      <p class="flight-card-date">Last one was in {{currentUser.lastOneCreated | date:'MM/dd/yyyy'}}</p>
+                    </div>
+                  </div>
+                  <div class="card-content-bg white-text"
+                       style="background:url('http://i0.wp.com/mentalhealth.amsa.org.au/wp-content/uploads/2014/08/campaign.png') no-repeat center center;-webkit-background-size:cover;-moz-background-size:cover;-o-background-size:cover;background-size:cover;height: 0px"
+                  >
+                    <div class="card-content">
+                      <div class="row flight-state-wrapper">
+                        <!-- <div class="col s5 m5 l5 center-align">
+                           <div class="flight-state">
+                             <h4 class="margin">LDN</h4>
+                             <p class="ultra-small">London</p>
+                           </div>
+                         </div>
+                         <div class="col s2 m2 l2 center-align">
+                           <i class="mdi-device-airplanemode-on flight-icon"></i>
+                         </div>
+                         <div class="col s5 m5 l5 center-align">
+                           <div class="flight-state">
+                             <h4 class="margin">SFO</h4>
+                             <p class="ultra-small">San Francisco</p>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="row">
+                         <div class="col s6 m6 l6 center-align">
+                           <div class="flight-info">
+                             <p class="small"><span class="grey-text text-lighten-4">Depart:</span> 04.50</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Flight:</span> IB 5786</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Terminal:</span> B</p>
+                           </div>
+                         </div>
+                         <div class="col s6 m6 l6 center-align flight-state-two">
+                           <div class="flight-info">
+                             <p class="small"><span class="grey-text text-lighten-4">Arrive:</span> 08.50</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Flight:</span> IB 5786</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Terminal:</span> C</p>
+                           </div>
+                         </div>
+                         -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- flight-card -->
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+      <div ng-show="currentUser.kind=='Business'" id="profile-pagebuss" class="section">
+        <!-- profile-page-header -->
+        <div id="profile-page-header" class="card">
+          <div class="card-image waves-effect waves-block waves-light">
+            <img class="activator"
+                 src="../../../../uploads/{{profile.user.coverPicture}}.jpg"
+                 alt="user background">
+          </div>
+          <figure class="card-profile-image">
+            <img
+              src="../../../../uploads/{{profile.user.profilePicture}}.png"
+              alt="profile image" class="circle z-depth-2 responsive-img activator">
+          </figure>
+          <div class="card-content">
+            <div class="row">
+              <div class="col s3 offset-s2">
+
+                <h4 class="card-title grey-text text-darken-4">
+                  {{profile.user.businessName}}</h4>
+                <p class="medium-small grey-text">{{currentUser.businessName}}</p>
+              </div>
+
+              <div class="col s1 right">
+                <a class="btn-floating activator waves-effect waves-light darken-2 right">
+                  <i class="mdi-action-perm-identity"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="card-reveal">
+            <p>
+              <span class="card-title grey-text text-darken-4">{{currentUser.businessName}} <i
+                class="mdi-navigation-close right"></i></span>
+              <span><i class="mdi-action-perm-identity cyan-text text-darken-2"></i> Business</span>
+            </p>
+
+            <p>{{currentUser.about}}</p>
+
+            <p><i class="mdi-action-perm-phone-msg cyan-text text-darken-2"></i> {{currentUser.phoneNumber}}</p>
+            <p><i class="mdi-communication-email cyan-text text-darken-2"></i> {{currentUser.email}}</p>
+            <p><i class="mdi-social-cake cyan-text text-darken-2"></i> {{currentUser.birthday | date:'MM/dd/yyyy'}}</p>
+            <p><i class="mdi-device-airplanemode-on cyan-text text-darken-2"></i> {{currentUser.country}}</p>
+          </div>
+        </div>
+        <!--/ profile-page-header -->
+
+        <!-- profile-page-content -->
+        <div id="profile-page-content" class="row">
+          <!-- profile-page-sidebar-->
+          <div id="profile-page-sidebar" class="col s12 m6">
+            <!-- Profile About  -->
+            <div class="card light-blue">
+              <div class="card-content white-text">
+                <span class="card-title">About Entreprise!</span>
+                <p>{{currentUser.about}}.</p>
+              </div>
+            </div>
+            <!-- Profile About  -->
+
+            <!-- Profile About Details  -->
+            <ul id="profile-page-about-details" class="collection z-depth-1">
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> Business Type</div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.businessType}}</div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="mdi-social-poll"></i> Employees Number</div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.employeesNumber}}</div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Country</div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.country}}</div>
+                  </div>
+                </div>
+              </li>
+              <li class="collection-item">
+                <div class="row">
+                  <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Active Since</div>
+                  <div class="col s7 grey-text text-darken-4 right-align">
+                    <div>{{currentUser.birthday | date:'MM/dd/yyyy'}}</div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+            <!--/ Profile About Details  -->
+
+
+          </div>
+          <!-- profile-page-sidebar-->
+
+          <!-- profile-page-wall -->
+          <div id="profile-page-wall" class="col s12 m6">
+            <!-- profile-page-wall-share -->
+            <div id="profile-page-wall-share" class="row">
+              <div class="col s12">
+
+                <!-- flight-card -->
+                <div id="flight-card" class="card">
+                  <div class="card-header amber darken-2">
+                    <div class="card-title">
+                      <h4 class="flight-card-title">Your Have Created {{currentUser.numberOfCampaigns}} Campaigns</h4>
+                      <p class="flight-card-date">Last one was in {{currentUser.lastOneCreated | date:'MM/dd/yyyy'}}</p>
+                    </div>
+                  </div>
+                  <div class="card-content-bg white-text">
+                    <div class="card-content">
+                      <div class="row flight-state-wrapper">
+                        <!-- <div class="col s5 m5 l5 center-align">
+                           <div class="flight-state">
+                             <h4 class="margin">LDN</h4>
+                             <p class="ultra-small">London</p>
+                           </div>
+                         </div>
+                         <div class="col s2 m2 l2 center-align">
+                           <i class="mdi-device-airplanemode-on flight-icon"></i>
+                         </div>
+                         <div class="col s5 m5 l5 center-align">
+                           <div class="flight-state">
+                             <h4 class="margin">SFO</h4>
+                             <p class="ultra-small">San Francisco</p>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="row">
+                         <div class="col s6 m6 l6 center-align">
+                           <div class="flight-info">
+                             <p class="small"><span class="grey-text text-lighten-4">Depart:</span> 04.50</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Flight:</span> IB 5786</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Terminal:</span> B</p>
+                           </div>
+                         </div>
+                         <div class="col s6 m6 l6 center-align flight-state-two">
+                           <div class="flight-info">
+                             <p class="small"><span class="grey-text text-lighten-4">Arrive:</span> 08.50</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Flight:</span> IB 5786</p>
+                             <p class="small"><span class="grey-text text-lighten-4">Terminal:</span> C</p>
+                           </div>
+                         </div>
+                         -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- flight-card -->
+
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+        </div>
+      </div>
+
+
+    </div>
+
+    <!--end container-->
+  </section>
+  <!-- END CONTENT -->
+
+  <!-- //////////////////////////////////////////////////////////////////////////// -->
+  <!-- START RIGHT SIDEBAR NAV-->
+  <aside id="right-sidebar-nav">
+    <ul id="chat-out" class="side-nav rightside-navigation">
+      <li class="li-hover">
+        <a href="#" data-activates="chat-out" class="chat-close-collapse right"><i class="mdi-navigation-close"></i></a>
+        <div id="right-search" class="row">
+          <form class="col s12">
+            <div class="input-field">
+              <i class="mdi-action-search prefix"></i>
+              <input id="icon_prefix" type="text" class="validate">
+              <label for="icon_prefix">Search</label>
+            </div>
+          </form>
+        </div>
+      </li>
+      <li class="li-hover">
+        <ul class="chat-collapsible" data-collapsible="expandable">
+          <li>
+            <div class="collapsible-header teal white-text active"><i class="mdi-social-whatshot"></i>Recent Activity
+            </div>
+            <div class="collapsible-body recent-activity">
+              <div class="recent-activity-list chat-out-list row">
+                <div class="col s3 recent-activity-list-icon"><i class="mdi-action-add-shopping-cart"></i>
+                </div>
+                <div class="col s9 recent-activity-list-text">
+                  <a href="#">just now</a>
+                  <p>Jim Doe Purchased new equipments for zonal office.</p>
+                </div>
+              </div>
+              <div class="recent-activity-list chat-out-list row">
+                <div class="col s3 recent-activity-list-icon"><i class="mdi-device-airplanemode-on"></i>
+                </div>
+                <div class="col s9 recent-activity-list-text">
+                  <a href="#">Yesterday</a>
+                  <p>Your Next flight for USA will be on 15th August 2015.</p>
+                </div>
+              </div>
+              <div class="recent-activity-list chat-out-list row">
+                <div class="col s3 recent-activity-list-icon"><i class="mdi-action-settings-voice"></i>
+                </div>
+                <div class="col s9 recent-activity-list-text">
+                  <a href="#">5 Days Ago</a>
+                  <p>Natalya Parker Send you a voice mail for next conference.</p>
+                </div>
+              </div>
+              <div class="recent-activity-list chat-out-list row">
+                <div class="col s3 recent-activity-list-icon"><i class="mdi-action-store"></i>
+                </div>
+                <div class="col s9 recent-activity-list-text">
+                  <a href="#">Last Week</a>
+                  <p>Jessy Jay open a new store at S.G Road.</p>
+                </div>
+              </div>
+              <div class="recent-activity-list chat-out-list row">
+                <div class="col s3 recent-activity-list-icon"><i class="mdi-action-settings-voice"></i>
+                </div>
+                <div class="col s9 recent-activity-list-text">
+                  <a href="#">5 Days Ago</a>
+                  <p>Natalya Parker Send you a voice mail for next conference.</p>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header light-blue white-text active"><i class="mdi-editor-attach-money"></i>Sales
+              Repoart
+            </div>
+            <div class="collapsible-body sales-repoart">
+              <div class="sales-repoart-list  chat-out-list row">
+                <div class="col s8">Target Salse</div>
+                <div class="col s4"><span id="sales-line-1"></span>
+                </div>
+              </div>
+              <div class="sales-repoart-list chat-out-list row">
+                <div class="col s8">Payment Due</div>
+                <div class="col s4"><span id="sales-bar-1"></span>
+                </div>
+              </div>
+              <div class="sales-repoart-list chat-out-list row">
+                <div class="col s8">Total Delivery</div>
+                <div class="col s4"><span id="sales-line-2"></span>
+                </div>
+              </div>
+              <div class="sales-repoart-list chat-out-list row">
+                <div class="col s8">Total Progress</div>
+                <div class="col s4"><span id="sales-bar-2"></span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="collapsible-header red white-text"><i class="mdi-action-stars"></i>Favorite Associates</div>
+            <div class="collapsible-body favorite-associates">
+              <div class="favorite-associate-list chat-out-list row">
+                <!-- <div class="col s4"><img src="images/logo.png" alt=""
+                                          class="circle responsive-img online-user valign profile-image">
+                 </div>-->
+                <div class="col s8">
+                  <p>Eileen Sideways</p>
+                  <p class="place">Los Angeles, CA</p>
+                </div>
+              </div>
+              <div class="favorite-associate-list chat-out-list row">
+                <!--<div class="col s4"><img src="images/logo.png" alt=""
+                                         class="circle responsive-img online-user valign profile-image">
+                </div>-->
+                <div class="col s8">
+                  <p>Zaham Sindil</p>
+                  <p class="place">San Francisco, CA</p>
+                </div>
+              </div>
+              <div class="favorite-associate-list chat-out-list row">
+                <!--<div class="col s4"><img src="images/avatar.jpg" alt=""
+                                         class="circle responsive-img offline-user valign profile-image">
+                </div>-->
+                <div class="col s8">
+                  <p>Renov Leongal</p>
+                  <p class="place">Cebu City, Philippines</p>
+                </div>
+              </div>
+              <div class="favorite-associate-list chat-out-list row">
+                <!-- <div class="col s4"><img src="images/logo.png" alt=""
+                                          class="circle responsive-img online-user valign profile-image">
+                 </div>-->
+                <div class="col s8">
+                  <p>Weno Carasbong</p>
+                  <p>Tokyo, Japan</p>
+                </div>
+              </div>
+              <div class="favorite-associate-list chat-out-list row">
+                <!--<div class="col s4"><img src="images/logo.png" alt=""
+                                         class="circle responsive-img offline-user valign profile-image">
+                </div>-->
+                <div class="col s8">
+                  <p>Nusja Nawancali</p>
+                  <p class="place">Bangkok, Thailand</p>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </aside>
+  <!-- LEFT RIGHT SIDEBAR NAV-->
+
+</div>
+
+
+<!-- ================================================
+Scripts
+================================================ -->
+
+</body>
+
+

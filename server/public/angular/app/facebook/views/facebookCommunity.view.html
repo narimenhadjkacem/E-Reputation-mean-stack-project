@@ -1,0 +1,102 @@
+<div class="col s12">
+  <h1>Community <span class="grey-text small"><b>(Personal Page)</b></span></h1>
+  <div class="row">
+    <div class="input-field col s5 m5 l5">
+      <input input-date
+             type="text"
+             name="created"
+             id="since"
+             ng-model="vm.since"
+             format="mmmm d, yyyy"
+             today="today"
+             clear="clear"
+             close="close"
+             select-years="15"
+             ng-change="vm.onChange()"
+      />
+      <label for="">Since</label>
+
+    </div>
+
+    <div class="input-field col s6 m6 l6">
+      <input input-date
+             type="text"
+             name="created"
+             id="until"
+             ng-model="vm.until"
+             format="mmmm d, yyyy"
+             today="today"
+             clear="clear"
+             close="close"
+             select-years="15"
+             ng-change="vm.onChange()"
+      />
+      <label for="">Until</label>
+
+    </div>
+
+  </div>
+
+  <div class="row">
+    <div class="input-field col s6 m6 l6">
+      <select ng-change="vm.onSelect()" ng-model="vm.selectedChannel._id" name="" id="" material-select watch>
+        <option value="" selected disabled>Pick a page</option>
+        <option ng-repeat="channel in vm.myChannels" value="{{channel._id}}">{{channel.name}}</option>
+      </select>
+      <label for="">Page</label>
+    </div>
+    <div class="input-field col s6 m6 l6">
+      <select ng-change="vm.onChangeSelectedDate()" ng-model="vm.selectedDate" material-select watch>
+        <option ng-repeat="date in vm.Dates" value="{{$index}}">{{date.text}}</option>
+      </select>
+      <label for="">Selected Date</label>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col s12 m12 l12">
+      <div class="card">
+        <div class="card-move-up waves-effect waves-block waves-light">
+          <div class="move-up blue darken-1">
+            <div>
+              <span class="chart-title white-text">Page Storytellers by Gender/Age</span>
+            </div>
+            <line-chart-curved ng-if="vm.display && vm.storytellersData.length" line-labels="{{vm.storytellersLabels}}"
+                               line-data="{{vm.storytellersData}}"></line-chart-curved>
+            <div ng-if="!vm.storytellersData.length && !vm.display" class="card-content blue darken-1 center-align">
+              <h6 class="white-text">Data is <b>Not Yet Available</b></h6>
+              <div class="spinner icon-spinner-5" aria-hidden="true"></div>
+            </div>
+
+          </div>
+        </div>
+        <div class="card-content">
+          <a class="btn-floating btn-move-up waves-effect waves-light darken-2 right"><i
+            class="mdi-content-add activator"></i></a>
+          <div ng-if="vm.TotalStoryByGender[0].value" class="col s12 m3 l3">
+            <doughnut-chart doughnut-data="{{vm.TotalStoryByGender}}"></doughnut-chart>
+          </div>
+          <div ng-if="!vm.TotalStoryByGender[0].value" class="col s12 m3 l3 center-align">
+            <h6 class="grey-text">Data is <b>Not Yet Available</b></h6>
+            <div class="spinner icon-spinner-5 cyan-text" aria-hidden="true"></div>
+          </div>
+          <div ng-if="vm.dataPageEngagedUsers.length" class="col s12 m8 l8">
+            <bar-chart bar-data="{{vm.dataPageEngagedUsers}}" bar-labels="{{vm.labelsPageEngagedUsers}}"></bar-chart>
+            <p>The number of people who engaged with your Page. Engagement includes any click.</p>
+          </div>
+          <div ng-if="!vm.dataPageEngagedUsers.length" class="col s12 m8 l8 center-align">
+            <h6 class="grey-text">Data is <b>Not Yet Available</b></h6>
+            <div class="spinner icon-spinner-5 cyan-text" aria-hidden="true"></div>
+            <p>The number of people who engaged with your Page. Engagement includes any click.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<script type="text/javascript" src="angular/app/assets/js/plugins/chartjs/chart.min.js"></script>

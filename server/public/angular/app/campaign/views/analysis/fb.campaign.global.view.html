@@ -1,0 +1,34 @@
+<div class="col s12 m12 l12">
+  <hr>
+  <nav>
+
+
+    <div class="nav-wrapper indigo darken-1">
+      <h5 ng-if="vm.selectedCampaignData.facebookScrapingState" class="brand-logo right" style="font-size: small">
+        Last operation : {{vm.selectedCampaignData.facebookScrapingState.date | date :'MMM d, y h:mm:ss a'}}
+
+      </h5>
+      <h5 ng-if="!vm.selectedCampaignData.facebookScrapingState" class="brand-logo right" style="font-size: small">
+        Last operation : No Data Yet
+
+      </h5>
+
+
+      <div class="col l12 s12 m12 white-text show-on-large">
+        <a ui-sref="campaignDetail.campaignFbAnalysis.overview"
+           class="white-text waves-effect btn-flat ultra-small"> Overview </a>
+        <a ui-sref="campaignDetail.campaignFbAnalysis.facebookOverview"
+           class="white-text waves-effect btn-flat ultra-small"> Insights </a>
+        <a ui-sref="campaignDetail.campaignFbAnalysis.facebookCommunity"
+           class="white-text waves-effect btn-flat ultra-small"> Community </a>
+        <a ui-sref="campaignDetail.campaignFbAnalysis.facebookSpecific"
+           class="white-text waves-effect btn-flat ultra-small"> Specific </a>
+      </div>
+
+
+    </div>
+  </nav>
+  <ui-view></ui-view>
+</div>
+
+
